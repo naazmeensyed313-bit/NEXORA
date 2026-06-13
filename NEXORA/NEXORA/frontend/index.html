@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/shared.css">
+    <link rel="stylesheet" href="login/login.css">
+</head>
+<body style="--module-accent: #0ea5e9; --module-accent-glow: rgba(14,165,233,0.35);">
+    
+    <!-- Ambient particles -->
+    <div class="particle-field" id="particleField"></div>
+    <div class="scanline-overlay"></div>
+
+    <div class="login-wrapper">
+        <div class="login-card glass-card accent-glow">
+            <div class="login-header">
+                <div class="logo-block" style="justify-content: center; margin-bottom: 1rem;">
+                    <span class="logo-glyph" style="font-size: 2.5rem; animation: pulse-glyph 3s infinite;">⬡</span>
+                </div>
+                <h1 class="login-title">Welcome to <span class="gradient-text">NEXORA</span></h1>
+                <p class="login-subtitle">Sign in to access your futuristic workspace.</p>
+            </div>
+
+            <!-- Phone Number Form -->
+            <form id="phoneLoginForm" class="login-form">
+                <div class="input-group">
+                    <label class="input-label" for="phoneNumber">Phone Number</label>
+                    <div class="phone-input-wrapper">
+                        <select class="neon-input neon-select phone-code">
+                            <option value="+1">+1 (US)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+91">+91 (IN)</option>
+                            <option value="+61">+61 (AU)</option>
+                        </select>
+                        <input type="tel" id="phoneNumber" class="neon-input" placeholder="e.g. 555 012 3456" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-simulate" id="sendOtpBtn">
+                    <i class="fa-solid fa-paper-plane"></i> Send OTP
+                    <span class="btn-shine"></span>
+                </button>
+            </form>
+
+            <!-- OTP Verification Form (Hidden by default) -->
+            <form id="otpForm" class="login-form hidden">
+                <div class="input-group">
+                    <label class="input-label" for="otpCode">Enter 6-digit OTP</label>
+                    <div class="otp-inputs">
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                        <input type="text" class="neon-input otp-box" maxlength="1" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-simulate" id="verifyOtpBtn">
+                    <i class="fa-solid fa-check-circle"></i> Verify & Login
+                    <span class="btn-shine"></span>
+                </button>
+                <div class="resend-link" id="resendOtp">Resend OTP</div>
+            </form>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <!-- Google Login -->
+            <button class="google-btn" id="googleLoginBtn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
+                Continue with Google
+            </button>
+            
+            <div class="tos-text">
+                By logging in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            </div>
+        </div>
+    </div>
+
+    <script src="login/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA — Architecture Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/shared.css">
+    <link rel="stylesheet" href="architecture.css">
+    <link rel="stylesheet" href="../assets/chatbot.css">
+</head>
+<body style="--module-accent: #00f0ff; --module-accent-glow: rgba(0,240,255,0.35);">
+  <!-- Ambient particles -->
+  <div class="particle-field" id="particleField"></div>
+  <div class="scanline-overlay"></div>
+
+  <!-- ───── HEADER ───── -->
+  <header class="nexora-header">
+    <div class="header-inner">
+      <!-- Home Button (top-left) -->
+      <a href="../home.html" aria-label="Home" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--module-accent); text-decoration:none; background:rgba(0,240,255,0.05); transition:all 0.2s;">
+        <i class="fa-solid fa-house"></i>
+      </a>
+
+      <!-- Logo (center) -->
+      <div class="logo-block">
+        <span class="logo-glyph">⬡</span>
+        <div>
+          <span class="logo-text">NEXORA</span>
+          <span class="logo-tagline">From Idea to Impact</span>
+        </div>
+      </div>
+
+      <!-- Home Icon (top-right) -->
+      <div class="journey-nav" style="display:flex; align-items:center; gap:20px;">
+        <div class="nav-journey" style="display: flex; align-items: center; gap: 6px; text-transform: uppercase; font-family: 'Inter', sans-serif;">
+            <a href="../idea_analyzer/analyzer.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Analyzer</a>
+            <a href="../innovation/innovation.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../innovation/innovation.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Detector</a>
+            <a href="architecture.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="architecture.html" class="journey-node active" style="color:var(--module-accent); text-shadow:0 0 10px var(--module-accent); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Architect</a>
+            <a href="../future_simulator/future_simulator.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../future_simulator/future_simulator.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Simulator</a>
+        </div>
+        <a href="javascript:history.back()" class="nav-back-btn" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:var(--module-accent);">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───── HERO ───── -->
+  <section class="hero-section">
+    <div class="hero-badge">MODULE 03</div>
+    <h1 class="hero-title">
+      Algorithm<br /><span class="gradient-text">Architect</span>
+    </h1>
+    <p class="hero-tagline">How should I build this?</p>
+    <p class="hero-sub">Visualize your complete system architecture with animated, interactive nodes — from users all the way to your AI engine.</p>
+
+    <!-- Idea Banner -->
+    <div class="idea-banner" id="ideaBanner" style="max-width: 900px; margin: 0 auto 2.5rem;">
+        <i class="fa-solid fa-lightbulb idea-banner-icon"></i>
+        <div style="text-align: left;">
+            <div class="idea-banner-label">Building Architecture For</div>
+            <div class="idea-banner-text" id="ideaBannerText">Loading idea...</div>
+        </div>
+        <a href="../index.html" class="idea-banner-edit">
+            <i class="fa-solid fa-pen"></i> Change Idea
+        </a>
+    </div>
+  </section>
+
+        <!-- Main Content: 3-column layout -->
+        <div class="results-panel">
+            <div class="arch-layout">
+
+            <!-- Left: System Modules Selector -->
+            <aside class="arch-sidebar glass-card">
+                <div class="sidebar-title">System Layers</div>
+                <div class="layer-list" id="layerList">
+                    <!-- Generated by JS -->
+                </div>
+                <div class="arch-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background:#00f5d4;"></span>
+                        <span>Active Node</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background:rgba(255,255,255,0.15);"></span>
+                        <span>Connection</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center: Architecture Diagram Canvas -->
+            <section class="arch-canvas-section glass-card">
+                <div class="canvas-header">
+                    <span class="canvas-header-title">System Architecture</span>
+                    <div class="canvas-controls">
+                        <button class="canvas-btn" id="resetBtn" title="Reset view">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button class="canvas-btn" id="animateBtn" title="Animate data flow">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="canvas-wrap" id="archCanvas">
+                    <!-- Initial State -->
+                    <div id="archInitialState" style="display:flex; flex-direction:column; align-items:center; gap:20px; z-index:10;">
+                        <i class="fa-solid fa-layer-group" style="font-size:3rem; color:var(--module-accent); opacity:0.8;"></i>
+                        <h3 style="font-weight:400;">Ready to build architecture</h3>
+                        <button id="generateArchBtn" class="btn-simulate" style="padding:12px 24px;">
+                            <i class="fa-solid fa-hammer"></i> Generate Architecture
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="archLoadingState" style="display:none; flex-direction:column; align-items:center; gap:20px; z-index:10;">
+                        <div class="loader-rings" style="position:relative; width:60px; height:60px;">
+                            <div style="position:absolute; inset:0; border:2px solid transparent; border-top-color:var(--cyan); border-radius:50%; animation:spin 1s linear infinite;"></div>
+                            <div style="position:absolute; inset:5px; border:2px solid transparent; border-top-color:var(--purple); border-radius:50%; animation:spin 1.5s linear infinite reverse;"></div>
+                        </div>
+                        <p style="color:var(--muted); font-size:14px; animation:pulse 1.5s infinite;">Analyzing requirements & mapping layers...</p>
+                    </div>
+                </div>
+                <div class="canvas-hint">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Click any node to highlight its connections · Click Animate to see data flow
+                </div>
+            </section>
+
+            <!-- Right: Tech Stack + Details -->
+            <aside class="arch-details glass-card">
+                <div class="sidebar-title">Tech Stack</div>
+                <div class="tech-stack-list" id="techStackList">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div class="node-detail-box" id="nodeDetailBox">
+                    <div class="sidebar-title" style="margin-top:24px;">Node Details</div>
+                    <div class="node-detail-content" id="nodeDetailContent">
+                        <p style="font-size:13px;color:var(--muted);">Click any node in the diagram to see details.</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        </div> <!-- End results-panel -->
+
+        <!-- Next Module Bar -->
+        <div class="next-module-bar">
+            <div>
+                <div class="next-label">NEXT MODULE</div>
+                <div class="next-name">Future Simulator <i class="fa-solid fa-arrow-right" style="margin-left: 8px; color: var(--cyan);"></i></div>
+            </div>
+            <a href="../future_simulator/future_simulator.html" class="btn-simulate" style="text-decoration:none;">
+                <i class="fa-solid fa-flask"></i>
+                Simulate Future
+                <span class="btn-shine"></span>
+            </a>
+        </div>
+
+
+    <script src="architecture.js"></script>
+    <script src="../assets/chatbot.js"></script>
+</body>
+</html>

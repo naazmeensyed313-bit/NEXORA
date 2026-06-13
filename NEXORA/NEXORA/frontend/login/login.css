@@ -1,0 +1,283 @@
+/* ── Nexora Login Styles ── */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.08), transparent 70%);
+}
+
+.login-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 440px;
+    padding: 2rem;
+    animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--cyan);
+}
+
+.login-card {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.login-header {
+    text-align: center;
+}
+
+.login-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.login-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted, var(--muted));
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-form.hidden {
+    display: none;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-label {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+}
+
+.phone-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.phone-code {
+    width: 100px;
+}
+
+.neon-input {
+    background: rgba(14, 165, 233, 0.04);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.neon-input:focus {
+    border-color: var(--module-accent);
+    box-shadow: 0 0 0 3px var(--module-accent-glow);
+}
+
+.btn-simulate {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    overflow: hidden;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+    text-transform: uppercase;
+}
+
+.btn-simulate:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.6);
+}
+
+.btn-shine {
+    position: absolute;
+    top: -50%; left: -75%;
+    width: 50%; height: 200%;
+    background: rgba(255,255,255,0.18);
+    transform: skewX(-20deg);
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0%,100% { left: -75%; opacity: 0; }
+    50%      { left: 125%; opacity: 1; }
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.divider span {
+    padding: 0 1rem;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.9rem;
+    background: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #3c4043;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.google-btn:hover {
+    background: #f8f9fa;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.google-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.tos-text {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: -0.5rem;
+}
+
+.tos-text a {
+    color: var(--cyan);
+    text-decoration: none;
+}
+
+.tos-text a:hover {
+    text-decoration: underline;
+}
+
+/* OTP specific */
+.otp-inputs {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.otp-box {
+    width: 45px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 0;
+    font-family: var(--font-display);
+}
+
+.resend-link {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    cursor: pointer;
+    margin-top: -0.5rem;
+}
+
+.resend-link:hover {
+    text-decoration: underline;
+}
+
+/* ── Particle field ── */
+.particle-field {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+}
+.particle {
+    position: absolute; border-radius: 50%;
+    animation: float linear infinite; opacity: 0;
+}
+@keyframes float {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+.scanline-overlay {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 1;
+    background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(14,165,233,0.012) 2px, rgba(14,165,233,0.012) 4px
+    );
+}

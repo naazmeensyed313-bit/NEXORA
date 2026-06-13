@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA | Future Impact Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <link rel="stylesheet" href="future_simulator.css" />
+  <link rel="stylesheet" href="../assets/chatbot.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body style="--module-accent: #00f0ff; --module-accent-glow: rgba(0,240,255,0.35);">
+  <!-- Ambient particles -->
+  <div class="particle-field" id="particleField"></div>
+  <div class="scanline-overlay"></div>
+
+  <!-- ───── HEADER ───── -->
+  <header class="nexora-header">
+    <div class="header-inner">
+      <!-- Home Button (top-left) -->
+      <a href="../home.html" aria-label="Home" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--module-accent); text-decoration:none; background:rgba(0,240,255,0.05); transition:all 0.2s;">
+        <i class="fa-solid fa-house"></i>
+      </a>
+
+      <!-- Logo (center) -->
+      <div class="logo-block">
+        <span class="logo-glyph">⬡</span>
+        <div>
+          <span class="logo-text">NEXORA</span>
+          <span class="logo-tagline">From Idea to Impact</span>
+        </div>
+      </div>
+
+      <!-- Home Icon (top-right) -->
+      <!-- Home Icon (top-right) -->
+      <div class="journey-nav" style="display:flex; align-items:center; gap:20px;">
+        <div class="nav-journey" style="display: flex; align-items: center; gap: 6px; text-transform: uppercase; font-family: 'Inter', sans-serif;">
+            <a href="../idea_analyzer/analyzer.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Analyzer</a>
+            <a href="../innovation/innovation.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../innovation/innovation.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Detector</a>
+            <a href="../architecture/architecture.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../architecture/architecture.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Architect</a>
+            <a href="future_simulator.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="future_simulator.html" class="journey-node active" style="color:var(--module-accent); text-shadow:0 0 10px var(--module-accent); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Simulator</a>
+        </div>
+        <a href="javascript:history.back()" class="nav-back-btn" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:var(--module-accent);">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───── HERO ───── -->
+  <section class="hero-section">
+    <div class="hero-badge">MODULE 04</div>
+    <h1 class="hero-title">
+      Future Impact<br /><span class="gradient-text">Simulator</span>
+    </h1>
+    <p class="hero-tagline">See the future before you build it.</p>
+    <p class="hero-sub">Enter your project idea and let AI model its trajectory — success probability, risk matrix, growth forecast, and what-if scenarios.</p>
+
+    <div class="input-card glass-card">
+      <div class="input-row">
+        <div class="input-group">
+          <label class="input-label">Project Idea</label>
+          <input type="text" id="projectIdea" class="neon-input" placeholder="e.g. AI-powered personal finance coach" />
+        </div>
+        <div class="input-group input-group--sm">
+          <label class="input-label">Industry</label>
+          <select id="industrySelect" class="neon-input neon-select">
+            <option value="fintech">Fintech</option>
+            <option value="healthtech">Healthtech</option>
+            <option value="edtech">Edtech</option>
+            <option value="saas">SaaS / B2B</option>
+            <option value="consumer">Consumer App</option>
+            <option value="ecommerce">E-Commerce</option>
+            <option value="ai">AI / ML Platform</option>
+          </select>
+        </div>
+        <div class="input-group input-group--sm">
+          <label class="input-label">Stage</label>
+          <select id="stageSelect" class="neon-input neon-select">
+            <option value="idea">Just an Idea</option>
+            <option value="validation">Validating</option>
+            <option value="mvp">Building MVP</option>
+            <option value="launched">Post-Launch</option>
+          </select>
+        </div>
+      </div>
+      <button id="simulateBtn" class="btn-simulate">
+        <span class="btn-icon">◈</span>
+        <span id="btnText">Run Simulation</span>
+        <span class="btn-shine"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ───── RESULTS (hidden until simulation runs) ───── -->
+  <main id="resultsPanel" class="results-panel hidden">
+
+    <!-- ── 1. SUCCESS PROJECTION ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">01 / SUCCESS PROJECTION</div>
+      <h2 class="section-title">Probability Model</h2>
+      <div class="projection-grid">
+        <div class="projection-hero glass-card">
+          <div class="prob-ring-wrap">
+            <svg class="prob-ring" viewBox="0 0 180 180">
+              <circle class="ring-bg" cx="90" cy="90" r="72" />
+              <circle class="ring-fill ring-success" id="successRing" cx="90" cy="90" r="72" stroke-dasharray="452" stroke-dashoffset="452" />
+            </svg>
+            <div class="prob-center">
+              <span class="prob-value" id="successProb">0%</span>
+              <span class="prob-label">Success</span>
+            </div>
+          </div>
+          <div class="prob-secondary">
+            <div class="prob-tag prob-tag--fail">
+              <span id="failProb">0%</span>
+              <span>Failure Risk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="projection-stats">
+          <div class="stat-card glass-card" id="statMVP">
+            <div class="stat-icon">⏱</div>
+            <div class="stat-body">
+              <div class="stat-value" id="mvpTime">—</div>
+              <div class="stat-name">MVP Completion</div>
+            </div>
+          </div>
+          <div class="stat-card glass-card" id="statUsers">
+            <div class="stat-icon">👥</div>
+            <div class="stat-body">
+              <div class="stat-value" id="earlyUsers">—</div>
+              <div class="stat-name">Expected Early Users</div>
+            </div>
+          </div>
+          <div class="stat-card glass-card" id="statTTM">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-body">
+              <div class="stat-value" id="timeToMarket">—</div>
+              <div class="stat-name">Time to Market</div>
+            </div>
+          </div>
+          <div class="stat-card glass-card" id="statROI">
+            <div class="stat-icon">📈</div>
+            <div class="stat-body">
+              <div class="stat-value" id="roiEstimate">—</div>
+              <div class="stat-name">Estimated ROI (Yr 2)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. RISK ASSESSMENT MATRIX ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">02 / RISK ASSESSMENT</div>
+      <h2 class="section-title">Risk Matrix</h2>
+      <div class="risk-grid" id="riskGrid">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+    <!-- ── 3. FUTURE TIMELINE ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">03 / DEVELOPMENT TRAJECTORY</div>
+      <h2 class="section-title">Future Timeline</h2>
+      <div class="timeline-scroll">
+        <div class="timeline-track" id="timelineTrack">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. GROWTH FORECAST ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">04 / GROWTH FORECAST</div>
+      <h2 class="section-title">Projected Trajectories</h2>
+      <div class="charts-grid">
+        <div class="chart-card glass-card">
+          <div class="chart-title">User Growth</div>
+          <canvas id="userGrowthChart"></canvas>
+        </div>
+        <div class="chart-card glass-card">
+          <div class="chart-title">Revenue Potential (K USD)</div>
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="chart-card glass-card chart-card--wide">
+          <div class="chart-title">Adoption Trend vs. Market Penetration</div>
+          <canvas id="adoptionChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. AI FUTURE INSIGHTS ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">05 / AI INSIGHTS</div>
+      <h2 class="section-title">Strategic Recommendations</h2>
+      <div class="insights-grid" id="insightsGrid">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+    <!-- ── 6. WHAT-IF SCENARIOS ── -->
+    <section class="results-section">
+      <div class="section-eyebrow">06 / WHAT-IF SIMULATION</div>
+      <h2 class="section-title">Scenario Analysis</h2>
+      <div class="scenario-tabs">
+        <button class="scenario-tab active" data-scenario="optimistic">🟢 Optimistic</button>
+        <button class="scenario-tab" data-scenario="realistic">🟡 Realistic</button>
+        <button class="scenario-tab" data-scenario="pessimistic">🔴 Pessimistic</button>
+      </div>
+      <div class="scenario-panel glass-card" id="scenarioPanel">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-core">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring--2"></div>
+      <div class="loader-ring loader-ring--3"></div>
+      <div class="loader-glyph">◈</div>
+      <div class="loader-text" id="loaderText">Initializing simulation…</div>
+      <div class="loader-progress">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="future_simulator.js"></script>
+  <script src="../assets/chatbot.js"></script>
+</body>
+</html>

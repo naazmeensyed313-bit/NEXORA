@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA | Idea Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="analyzer.css" />
+  <link rel="stylesheet" href="../assets/chatbot.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Ambient particles -->
+  <div class="particle-field" id="particleField"></div>
+  <div class="scanline-overlay"></div>
+
+  <!-- Hidden SVG gradient defs -->
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="radarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#00f0ff"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ───── HEADER ───── -->
+  <header class="nexora-header">
+    <div class="header-inner">
+
+      <!-- Home Button (top-left) -->
+      <a href="../home.html" aria-label="Home" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--cyan); text-decoration:none; background:rgba(0,240,255,0.05); transition:all 0.2s;">
+        <i class="fa-solid fa-house"></i>
+      </a>
+
+      <!-- Logo (center) -->
+      <div class="logo-block">
+        <span class="logo-glyph">⬡</span>
+        <div>
+          <span class="logo-text">NEXORA</span>
+          <span class="logo-tagline">From Idea to Impact</span>
+        </div>
+      </div>
+
+      <!-- Home Icon (top-right) -->
+      <!-- Home Icon (top-right) -->
+      <div class="journey-nav" style="display:flex; align-items:center; gap:20px;">
+        <div class="nav-journey" style="display: flex; align-items: center; gap: 6px; text-transform: uppercase; font-family: 'Inter', sans-serif;">
+            <a href="analyzer.html" class="journey-node active" style="color:var(--cyan); text-shadow:0 0 10px var(--cyan); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Analyzer</a>
+            <a href="../innovation/innovation.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../innovation/innovation.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Detector</a>
+            <a href="../architecture/architecture.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../architecture/architecture.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Architect</a>
+            <a href="../future_simulator/future_simulator.html" class="journey-sep" style="color:rgba(232,234,246,0.25); font-size:10px; text-decoration:none;">›</a>
+            <a href="../future_simulator/future_simulator.html" class="journey-node" style="color:rgba(232,234,246,0.25); font-size:10px; font-weight:600; letter-spacing:1px; text-decoration:none;">Simulator</a>
+        </div>
+        <a href="javascript:history.back()" class="nav-back-btn" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:var(--cyan);">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ───── HERO ───── -->
+  <section class="hero-section">
+    <div class="hero-badge">MODULE 01</div>
+    <h1 class="hero-title">
+      Is this idea<br /><span class="gradient-text">worth building?</span>
+    </h1>
+    <p class="hero-tagline">Analyze before you build.</p>
+    <p class="hero-sub">Describe your idea and get AI-powered scores across innovation, feasibility, complexity, and market demand — with actionable next steps.</p>
+
+    <!-- Input Card -->
+    <div class="input-card glass-card" id="inputSection">
+      <label class="input-label" for="ideaInput">Your Project Idea</label>
+      <textarea
+        id="ideaInput"
+        class="neon-textarea"
+        placeholder="e.g. An AI platform that analyzes student assignments, provides personalized feedback, tracks learning progress, and suggests study resources based on individual weaknesses..."
+      ></textarea>
+      <div class="input-footer">
+        <span class="char-count" id="charCount">0 characters</span>
+        <button class="btn-simulate" id="analyzeBtn">
+          <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+          <span id="btnText">Analyze Idea</span>
+          <span class="btn-shine"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── RESULTS ───── -->
+  <main id="resultsPanel" class="results-panel hidden">
+
+    <!-- Idea Banner -->
+    <div class="idea-banner" id="ideaBanner">
+      <span class="idea-banner-icon"><i class="fa-solid fa-lightbulb"></i></span>
+      <div>
+        <div class="idea-banner-label">ANALYZING IDEA</div>
+        <div class="idea-banner-text" id="ideaBannerText"></div>
+      </div>
+      <button class="idea-banner-edit" id="editIdeaBtn">
+        <i class="fa-solid fa-pen"></i> Edit Idea
+      </button>
+    </div>
+
+    <!-- AI Confidence Meter -->
+    <div class="confidence-row">
+      <span class="conf-label">AI ANALYSIS CONFIDENCE</span>
+      <div class="conf-track">
+        <div class="conf-fill" id="confFill"></div>
+      </div>
+      <span class="conf-value" id="confValue">—</span>
+    </div>
+
+    <!-- 01 Scores -->
+    <section class="results-section">
+      <div class="section-eyebrow">01 / INNOVATION SCORES</div>
+      <h2 class="section-title">Idea Assessment</h2>
+      <div class="score-grid" id="scoreGrid"></div>
+    </section>
+
+    <!-- 02 Radar + Insights -->
+    <section class="results-section">
+      <div class="section-eyebrow">02 / DEEP ANALYSIS</div>
+      <h2 class="section-title">Radar Profile & Recommendations</h2>
+      <div class="results-lower-grid">
+        <div class="glass-card chart-card">
+          <div class="chart-title">RADAR ANALYSIS</div>
+          <div class="chart-wrap">
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+        <div class="insights-col">
+          <div class="glass-card insight-card">
+            <div class="section-title">AI Summary</div>
+            <p class="insight-text" id="summaryText"></p>
+          </div>
+          <div class="glass-card insight-card">
+            <div class="section-title">Action Items</div>
+            <ul class="suggestions-list" id="suggestionsList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Market & Competition -->
+    <section class="results-section">
+      <div class="section-eyebrow">03 / MARKET INTELLIGENCE</div>
+      <h2 class="section-title">Market & Competition Outlook</h2>
+      <div class="market-grid">
+        <div class="glass-card market-card">
+          <div class="chart-title">SCORE BREAKDOWN</div>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="glass-card market-card">
+          <div class="chart-title">RISK DISTRIBUTION</div>
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Error State -->
+  <div id="errorSection" class="results-panel hidden">
+    <div class="error-state glass-card" style="max-width:600px;margin:3rem auto;padding:3rem;">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <h3>Analysis Failed</h3>
+      <p id="errorText">Could not connect to backend. Make sure the server is running on port 5000.</p>
+      <button class="btn-simulate" id="retryBtn" style="margin-top:1.5rem;">
+        <i class="fa-solid fa-rotate-right"></i> Try Again
+        <span class="btn-shine"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Next Module Bar -->
+  <div class="next-module-bar hidden" id="nextModuleBar">
+    <div>
+      <div class="next-label">NEXT MODULE</div>
+      <div class="next-name">Innovation Detector →</div>
+    </div>
+    <a href="../innovation/innovation.html" class="btn-simulate" style="text-decoration:none;">
+      <i class="fa-solid fa-crosshairs"></i>
+      Check Uniqueness
+      <span class="btn-shine"></span>
+    </a>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-core">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring--2"></div>
+      <div class="loader-ring loader-ring--3"></div>
+      <div class="loader-glyph">◈</div>
+      <div class="loader-text" id="loaderText">Initializing analysis…</div>
+      <div class="loader-progress">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="analyzer.js"></script>
+  <script src="../assets/chatbot.js"></script>
+</body>
+</html>
