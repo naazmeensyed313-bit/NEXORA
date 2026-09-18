@@ -1,0 +1,12 @@
+{
+  "name": "nexora",
+  "version": "1.0.0",
+  "description": "Nexora project",
+  "scripts": {
+    "dev": "concurrently \"node backend/server.js\" \"npx serve frontend -p 3000\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+

@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require('path').join(__dirname, '.env'), override: true });
 
 // Force the SDK to use the key from .env instead of a global Windows env variable
 if (process.env.GEMINI_API_KEY) {
@@ -69,11 +69,11 @@ Rules:
 
     // Use gemini-2.5-flash with timeout
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Gemini API timeout (5s)")), 5000)
+      setTimeout(() => reject(new Error("Gemini API timeout (30s)")), 30000)
     );
 
     const apiPromise = ai.models.generateContent({
-      model: "models/gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL || "models/gemini-2.5-flash",
       contents: prompt,
     });
 
@@ -181,11 +181,11 @@ Rules:
     console.log("Calling Gemini API for /innovation:", idea.substring(0, 50) + "...");
     
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Gemini API timeout (5s)")), 5000)
+      setTimeout(() => reject(new Error("Gemini API timeout (30s)")), 30000)
     );
 
     const apiPromise = ai.models.generateContent({
-      model: "models/gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL || "models/gemini-2.5-flash",
       contents: prompt,
     });
 
@@ -289,7 +289,7 @@ Rules:
     );
 
     const apiPromise = ai.models.generateContent({
-      model: "models/gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL || "models/gemini-2.5-flash",
       contents: prompt,
     });
 
@@ -377,7 +377,7 @@ Rules:
     );
 
     const apiPromise = ai.models.generateContent({
-      model: "models/gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL || "models/gemini-2.5-flash",
       contents: prompt,
     });
 
