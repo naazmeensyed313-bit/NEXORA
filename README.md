@@ -3,7 +3,7 @@
 Nexora is an AI-powered business projection and innovation evaluator designed to take raw ideas and turn them into fully execution-ready innovations. 
 
 ## Live Demo
-Check out the live application here: [Insert Live Demo Link Here](#)
+Check out the live application here: [https://backend-gamma-one-75.vercel.app](https://backend-gamma-one-75.vercel.app)
 
 ## Objectives
 
