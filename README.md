@@ -1,20 +1,27 @@
 # Nexora
 
-Nexora is an AI-powered business projection and innovation evaluator designed to take raw ideas and turn them into fully execution-ready innovations. It helps you determine if an idea is worth building, how unique it is, what the architecture should look like, and how it will perform in the market.
+Nexora is an AI-powered business projection and innovation evaluator designed to take raw ideas and turn them into fully execution-ready innovations. 
+
+## Objectives
+
+- To help entrepreneurs, developers, and hackathon participants rapidly evaluate the viability of their concepts.
+- To provide deep, AI-driven insights into market demand, potential risks, and execution complexity.
+- To automatically generate high-level architectural blueprints for software solutions.
+- To offer an intuitive, real-time brainstorming assistant to refine ideas before writing any code.
 
 ## Key Features
 
-- **Idea Analyzer:** Get AI-scored assessments across innovation, feasibility, complexity, and market demand, plus concrete next steps tailored to your idea.
+- **Idea Analyzer:** Get AI-scored assessments across innovation, feasibility, complexity, and market demand.
 - **Innovation Detector:** Analyze market saturation, discover similar existing solutions, and identify key differentiation opportunities.
-- **Algorithm Architect:** Generate an interactive, high-level system architecture flowchart showing exactly how your idea connects.
-- **Future Impact Simulator:** Predict success probabilities, adoption rates, risks, and growth trajectories using an AI-powered simulation deck.
+- **Algorithm Architect:** Generate an interactive, high-level system architecture flowchart.
+- **Future Impact Simulator:** Predict success probabilities, adoption rates, risks, and growth trajectories.
 - **Integrated Chatbot:** An AI-driven assistant available on every page to answer questions and brainstorm.
 
-## Tech Stack
+## Tools and Technologies
 
 - **Frontend:** Vanilla HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
-- **AI Integration:** Google Gemini API (`@google/genai`)
+- **AI Engine:** Google Gemini API (`@google/genai`)
 
 ## Prerequisites
 
@@ -54,11 +61,3 @@ npm run dev
 
 - **Backend API:** `http://localhost:5000`
 - **Frontend UI:** `http://localhost:3000`
-
-## Deployment
-
-If you plan to deploy this application to production:
-
-1. **Backend:** Deploy the `backend/` directory to a Node.js hosting service (e.g., Render, Railway).
-2. **Frontend Configuration:** Update all API `fetch()` URLs in your frontend JavaScript files from `http://localhost:5000` to your new live backend URL.
-3. **Frontend:** Host the `frontend/` directory on a static hosting provider (e.g., GitHub Pages, Vercel, Netlify).
