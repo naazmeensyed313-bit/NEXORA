@@ -108,7 +108,7 @@
         const ideaContext = sessionStorage.getItem('nexora_idea') || '';
 
         // Call AI Mentor Backend
-        fetch('http://localhost:5000/chat', {
+        fetch('https://nexora-bc4j.onrender.com/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text, ideaContext })

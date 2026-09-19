@@ -43,7 +43,7 @@ const newArchJS = `/* NEXORA — Architecture Builder JS
 
   async function fetchArchitectureData() {
     try {
-      const res = await fetch('http://localhost:5000/architecture', {
+      const res = await fetch('https://nexora-bc4j.onrender.com/architecture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idea })

@@ -199,7 +199,7 @@ function localInnovationAnalysis(idea) {
 // ── Try backend, fall back to local ──────────────────────────
 async function fetchDetection(idea) {
   try {
-    const response = await fetch('http://localhost:5000/innovation', {
+    const response = await fetch('https://nexora-bc4j.onrender.com/innovation', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idea }),

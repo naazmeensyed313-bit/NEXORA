@@ -279,7 +279,7 @@ function generateMockData(idea, industry, stage) {
 // ── Try backend, fall back to mock ───────────────────────────
 async function fetchSimulation(idea, industry, stage) {
   try {
-    const response = await fetch('http://localhost:5000/api/future-simulator', {
+    const response = await fetch('https://nexora-bc4j.onrender.com/api/future-simulator', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idea, industry, stage }),

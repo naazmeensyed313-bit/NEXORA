@@ -211,7 +211,7 @@ function generateMockData(idea) {
 // ── Try backend, fall back to mock (matches future_simulator) ──
 async function fetchAnalysis(idea) {
   try {
-    const response = await fetch('http://localhost:5000/analyze', {
+    const response = await fetch('https://nexora-bc4j.onrender.com/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idea }),
